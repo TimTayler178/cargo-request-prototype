@@ -1,0 +1,499 @@
+.combo-arrow {
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  color: transparent;
+  background: url("assets/arrow-c-down-16-regular.svg") center / 16px 16px no-repeat;
+  transition: transform 0.15s;
+}
+
+.combo.open .combo-arrow {
+  transform: rotate(180deg);
+}
+
+.combo-menu {
+  max-height: 300px;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.combo-options-scroll {
+  max-height: 252px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.combo-manual {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  margin-top: 4px;
+  padding: 8px;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0 0 6px 6px;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.88);
+  font: 14px/20px "Lab Grotesque K", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.combo-manual:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.combo-manual span {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: url("assets/tool-pencil-line-16-light.svg") center / 16px 16px no-repeat;
+}
+
+.owner-block {
+  display: contents;
+}
+
+.modal {
+  height: auto;
+  min-height: 0;
+}
+
+.cargo-title {
+  position: relative;
+}
+
+.cargo-actions-menu {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  z-index: 8;
+  display: none;
+  width: 190px;
+  padding: 4px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 32px 32px -16px rgba(0, 0, 0, 0.08), 0 0 24px rgba(0, 0, 0, 0.12);
+}
+
+.cargo-title.actions-open .cargo-actions-menu {
+  display: block;
+}
+
+.cargo-actions-menu button {
+  display: block;
+  width: 100%;
+  min-height: 32px;
+  margin: 0 0 1px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.88);
+  font: 14px/20px "Lab Grotesque K", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cargo-actions-menu button:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.cargo-actions-menu button:disabled {
+  color: rgba(0, 0, 0, 0.32);
+  background: transparent;
+  cursor: default;
+}
+
+.cargo-actions-menu [data-cargo-action="delete"]:not(:disabled) {
+  color: #ce0014;
+}
+
+.cargo-state-line {
+  grid-template-columns: 225px 360px minmax(0, 1fr);
+  column-gap: 0;
+}
+
+.cargo-state-line .side-note {
+  position: static;
+  align-self: center;
+  left: auto;
+  top: auto;
+  margin-left: 16px;
+  padding: 0;
+  color: #777;
+}
+
+.cargo-route-caption {
+  min-width: 0;
+  color: #222;
+  white-space: nowrap;
+}
+
+.cargo-route-caption > span {
+  margin-left: 4px;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+select:focus,
+textarea:focus {
+  border-color: #484848;
+  outline: 0;
+  box-shadow: 0 0 0 1px #484848;
+}
+
+.ds-select-button:focus {
+  outline: 0;
+  box-shadow: 0 0 0 1px #484848, inset 0 0 0 1px #484848;
+}
+
+.ds-select {
+  min-width: 0;
+}
+
+.ds-select-button {
+  max-width: 100%;
+}
+
+.ds-select-button::after {
+  content: "";
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  color: transparent;
+  background: url("assets/arrow-c-down-16-regular.svg") center / 16px 16px no-repeat;
+  transition: transform 0.15s;
+}
+
+.terminal-bar {
+  background: #f1f1f1;
+}
+
+.cargo-route {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 178px;
+}
+
+.cargo-route label,
+.cargo-route .ds-select,
+.cargo-route input {
+  min-width: 0;
+}
+
+.cargo-route .ds-select-menu,
+.cargo-route .ds-select-option {
+  max-width: 100%;
+}
+
+.cargo-route .ds-select-option {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cargo-title > .button {
+  position: relative;
+  padding-right: 34px;
+}
+
+.cargo-title > .button::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  background: url("assets/arrow-c-down-16-regular.svg") center / 16px 16px no-repeat;
+}
+
+.nav-disclosure {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-disclosure::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  background: url("assets/arrow-c-down-16-regular.svg") center / 16px 16px no-repeat;
+}
+
+input.field-invalid,
+input.field-invalid:focus,
+textarea.field-invalid,
+textarea.field-invalid:focus {
+  border-color: #d6192a;
+  outline: 0;
+  box-shadow: 0 0 0 1px #d6192a;
+}
+
+.ds-select.field-invalid .ds-select-button,
+.ds-select.field-invalid .ds-select-button:focus {
+  outline: 0;
+  box-shadow: 0 0 0 1px #d6192a, inset 0 0 0 1px #d6192a;
+}
+
+button.field-invalid,
+button.field-invalid:hover,
+button.field-invalid:focus {
+  border: 1px solid #d6192a;
+  outline: 0;
+  box-shadow: 0 0 0 1px #d6192a;
+}
+
+.toggle-row.field-invalid i {
+  box-shadow: 0 0 0 2px #d6192a;
+}
+
+.variant-a-guide-button {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  z-index: 1302;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0, 0, 0, .18);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .16);
+  cursor: pointer;
+}
+
+.variant-a-guide-button:hover { background: #f5f5f5; }
+.variant-a-guide-button:focus-visible { outline: 2px solid #484848; outline-offset: 2px; }
+.variant-a-guide-button img,
+.variant-a-dialog-icon img { display: block; width: 24px; height: 24px; }
+
+.variant-a-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: 40px;
+  overflow: auto;
+  background: rgba(0, 0, 0, .24);
+}
+
+.variant-a-overlay[hidden] { display: none; }
+
+.variant-a-task { z-index: 1300; }
+
+.variant-a-dialog {
+  position: relative;
+  box-sizing: border-box;
+  width: min(560px, 100%);
+  padding: 32px;
+  border-radius: 12px;
+  background: #fff;
+  color: #222;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .2);
+}
+
+.variant-a-welcome-dialog { text-align: center; }
+
+.variant-a-dialog-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 48px;
+  border-radius: 10px;
+  background: #e5faf6;
+}
+
+.variant-a-welcome-dialog .variant-a-dialog-icon { margin: 0 auto 20px; }
+.variant-a-kicker { margin-bottom: 8px; color: #707070; font-size: 14px; line-height: 20px; }
+.variant-a-dialog h2 { margin: 0; font-size: 28px; line-height: 34px; }
+.variant-a-dialog p { margin: 16px 0 24px; font-size: 16px; line-height: 24px; }
+.variant-a-start { min-width: 132px; }
+
+.variant-a-dialog-heading {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 32px;
+}
+
+.variant-a-task-dialog ol { margin: -8px 0 28px; padding-left: 24px; font-size: 16px; line-height: 24px; }
+.variant-a-task-dialog li + li { margin-top: 8px; }
+
+.variant-a-dialog-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #555;
+  font: 28px/30px Arial, sans-serif;
+  cursor: pointer;
+}
+
+.variant-a-dialog-close:hover { background: #f2f2f2; }
+
+@media (max-width: 700px) {
+  .variant-a-guide-button { top: 16px; right: 16px; }
+  .variant-a-overlay { padding: 16px; }
+  .variant-a-dialog { padding: 24px; }
+}
+
+/* Exact Variant A modal geometry from Figma nodes 4971:130351 and 4971:130521. */
+.variant-a-guide-button {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.variant-a-guide-button:hover { background: #f2f2f2; }
+
+.variant-a-overlay {
+  padding: 24px;
+  background: rgba(0, 0, 0, .24);
+}
+
+.variant-a-dialog {
+  width: 500px;
+  max-width: 100%;
+  padding: 32px;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .18);
+  text-align: left;
+}
+
+.variant-a-welcome-dialog { height: 784px; }
+.variant-a-task-dialog { height: 718px; }
+
+.variant-a-dialog-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  display: block;
+  border-radius: 0;
+  background: transparent;
+}
+
+.variant-a-dialog-icon img {
+  width: 48px;
+  height: 48px;
+}
+
+.variant-a-dialog h2 {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.variant-a-assignment {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.variant-a-assignment p {
+  margin: 0 0 16px;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.variant-a-assignment strong { font-weight: 700; }
+
+.variant-a-start,
+#variantTaskDone {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  left: 32px;
+  box-sizing: border-box;
+  width: calc(100% - 64px);
+  height: 40px;
+  margin: 0;
+}
+
+@media (max-height: 832px), (max-width: 548px) {
+  .variant-a-overlay { align-items: start; }
+}
+
+/* Modal spacing adjustments for Variant A. */
+.variant-a-dialog {
+  border-radius: 16px;
+}
+
+.variant-a-welcome-dialog,
+.variant-a-task-dialog {
+  height: auto;
+}
+
+.variant-a-start,
+#variantTaskDone {
+  position: static;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  width: 100%;
+  margin: 0;
+}
+
+#routeModal .modal {
+  margin-top: 40px;
+}
+
+.variant-a-complete {
+  z-index: 1301;
+}
+
+.variant-a-complete-dialog {
+  width: 500px;
+  height: 344px;
+  padding: 32px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.variant-a-complete-dialog .variant-a-dialog-icon {
+  margin-bottom: 16px;
+}
+
+.variant-a-complete-dialog h2 {
+  margin: 0 0 20px;
+  font-size: 28px;
+  line-height: 34px;
+}
+
+.variant-a-complete-lead {
+  margin: 0 0 24px !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+}
+
+.variant-a-complete-copy {
+  margin: 0 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+#variantStartB {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  left: 32px;
+  width: calc(100% - 64px);
+  height: 40px;
+}
