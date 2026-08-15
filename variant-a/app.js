@@ -473,14 +473,15 @@ const variantTask=$('#variantTask');
 const variantComplete=$('#variantComplete');
 let variantATestStartedAt=null;
 let variantADuration=0;
+let variantASessionId='';
 function syncVariantPageScroll(){document.body.style.overflow=(!variantWelcome.hidden||!variantTask.hidden||!variantComplete.hidden||!modal.hidden)?'hidden':''}
 function openVariantTask(){variantTask.hidden=false;syncVariantPageScroll();$('#variantTaskDone').focus()}
 function closeVariantTask(){variantTask.hidden=true;syncVariantPageScroll();$('#variantGuideButton').focus()}
 function openVariantComplete(){variantADuration=Math.max(1000,Date.now()-(variantATestStartedAt||Date.now()));variantComplete.hidden=false;syncVariantPageScroll();$('#variantStartB').focus()}
-$('#variantStart').addEventListener('click',()=>{variantATestStartedAt=Date.now();variantWelcome.hidden=true;syncVariantPageScroll()});
+$('#variantStart').addEventListener('click',()=>{variantATestStartedAt=Date.now();variantASessionId=globalThis.crypto?.randomUUID?.()||`${variantATestStartedAt}-${Math.random().toString(36).slice(2)}`;variantWelcome.hidden=true;syncVariantPageScroll()});
 $('#variantGuideButton').addEventListener('click',openVariantTask);
 $('#variantTaskDone').addEventListener('click',closeVariantTask);
-$('#variantStartB').addEventListener('click',()=>{window.location.href=`../variant-b/index.html?a=${variantADuration}&bStart=${Date.now()}`});
+$('#variantStartB').addEventListener('click',()=>{window.location.href=`../variant-b/index.html?a=${variantADuration}&bStart=${Date.now()}&start=${variantATestStartedAt}&session=${encodeURIComponent(variantASessionId)}`});
 syncVariantPageScroll();
 
 $('#addCargo').addEventListener('click',()=>addCargoBlock(true));
