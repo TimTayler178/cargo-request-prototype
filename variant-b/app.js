@@ -485,9 +485,13 @@ $('#cancelButton').addEventListener('click',()=>note('Действие отме�
 renderRoutes();
 
 const variantBTiming=new URLSearchParams(window.location.search);
+const resultsEndpoint='https://script.google.com/macros/s/AKfycbz7yNthiJ98qexRFlq65cTU_6JTEOIrlQPus_7admsHj9A60ExAvuUJJabORWSWloqA/exec';
 const variantAElapsed=Math.max(0,Number(variantBTiming.get('a'))||0);
 const variantBStartedAt=Math.max(0,Number(variantBTiming.get('bStart'))||Date.now());
+const testStartedAt=Math.max(0,Number(variantBTiming.get('start'))||0);
+const testSessionId=variantBTiming.get('session')||'';
 let variantBElapsed=null;
+let resultsSent=false;
 
 const variantBCompleteUi=document.createElement('div');
 variantBCompleteUi.className='variant-b-final-overlay';
@@ -510,6 +514,12 @@ function formatVariantTime(milliseconds){
   const seconds=Math.max(0,Math.floor(milliseconds/1000));
   return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;
 }
+function sendCompletedResult(){
+  if(resultsSent||!variantAElapsed||!variantBElapsed||!testStartedAt||!testSessionId)return;
+  resultsSent=true;
+  const payload={startedAt:new Date(testStartedAt).toISOString(),durationA:variantAElapsed,durationB:variantBElapsed,sessionId:testSessionId};
+  fetch(resultsEndpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{resultsSent=false});
+}
 function openVariantBComplete(){
   if(variantBElapsed===null)variantBElapsed=Math.max(1000,Date.now()-variantBStartedAt);
   const maximum=Math.max(variantAElapsed,variantBElapsed,1);
@@ -523,6 +533,7 @@ function openVariantBComplete(){
   aRow.classList.toggle('is-slower',aSlower);aRow.classList.toggle('is-faster',!aSlower);
   bRow.classList.toggle('is-slower',!aSlower);bRow.classList.toggle('is-faster',aSlower);
   variantBCompleteUi.hidden=false;
+  sendCompletedResult();
   document.body.style.overflow='hidden';
   $('#variantBRestart').focus();
 }
