@@ -469,14 +469,14 @@ document.body.append(variantAUi);
 const variantWelcome=$('#variantWelcome');
 const variantTask=$('#variantTask');
 const variantComplete=$('#variantComplete');
-let variantBStartedAt=null;
+let variantBStartedAt=0;
 let variantBDuration=0;
 let testStartedAt=0;
 let testSessionId='';
 function syncVariantPageScroll(){const bModal=$('#variantBAddressModal');document.body.style.overflow=(!variantWelcome.hidden||!variantTask.hidden||!variantComplete.hidden||!modal.hidden||(bModal&&!bModal.hidden))?'hidden':''}
 function openVariantTask(){variantTask.hidden=false;syncVariantPageScroll();$('#variantTaskDone').focus()}
 function closeVariantTask(){variantTask.hidden=true;syncVariantPageScroll();$('#variantGuideButton').focus()}
-function openVariantComplete(){variantBDuration=Math.max(1000,Date.now()-(variantBStartedAt||Date.now()));variantComplete.hidden=false;syncVariantPageScroll();$('#variantStartB').focus()}
+function openVariantComplete(){if(!variantBStartedAt)return;variantBDuration=Math.max(1000,Date.now()-variantBStartedAt);variantComplete.hidden=false;syncVariantPageScroll();$('#variantStartB').focus()}
 $('#variantStart').addEventListener('click',()=>{variantBStartedAt=Date.now();testStartedAt=variantBStartedAt;testSessionId=globalThis.crypto?.randomUUID?.()||`${testStartedAt}-${Math.random().toString(36).slice(2)}`;variantWelcome.hidden=true;syncVariantPageScroll()});
 $('#variantGuideButton').addEventListener('click',openVariantTask);
 $('#variantTaskDone').addEventListener('click',closeVariantTask);
