@@ -2,7 +2,7 @@ const $=s=>document.querySelector(s);
 const $$=s=>[...document.querySelectorAll(s)];
 const fixes=document.createElement('link');
 fixes.rel='stylesheet';
-fixes.href='overrides.css';
+fixes.href='overrides.css?v=20260826-2';
 document.head.append(fixes);
 const modal=$('#routeModal');
 const form=$('#routeForm');
