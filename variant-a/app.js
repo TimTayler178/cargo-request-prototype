@@ -473,7 +473,7 @@ const variantTask=$('#variantTask');
 const variantComplete=$('#variantComplete');
 const variantATiming=new URLSearchParams(window.location.search);
 const variantBElapsed=Math.max(0,Number(variantATiming.get('b'))||0);
-const variantATestStartedAt=Math.max(0,Number(variantATiming.get('aStart'))||Date.now());
+const variantATestStartedAt=Math.max(0,Number(variantATiming.get('aStart'))||0);
 const testStartedAt=Math.max(0,Number(variantATiming.get('start'))||0);
 const testSessionId=variantATiming.get('session')||'';
 const resultsEndpoint='https://script.google.com/macros/s/AKfycbz7yNthiJ98qexRFlq65cTU_6JTEOIrlQPus_7admsHj9A60ExAvuUJJabORWSWloqA/exec';
@@ -513,6 +513,7 @@ function syncVariantPageScroll(){document.body.style.overflow=(!variantTask.hidd
 function openVariantTask(){variantTask.hidden=false;syncVariantPageScroll();$('#variantTaskDone').focus()}
 function closeVariantTask(){variantTask.hidden=true;syncVariantPageScroll();$('#variantGuideButton').focus()}
 function openVariantComplete(){
+  if(!variantATestStartedAt)return;
   if(variantAElapsed===null)variantAElapsed=Math.max(1000,Date.now()-variantATestStartedAt);
   const values={a:variantAElapsed,b:variantBElapsed};
   const max=Math.max(values.a,values.b,1);
@@ -533,7 +534,7 @@ $('#variantTaskDone').addEventListener('click',closeVariantTask);
 $('#variantBRestart').addEventListener('click',()=>{window.location.href='../variant-b/index.html'});
 variantWelcome.remove();
 variantComplete.remove();
-if(!variantBElapsed||!testStartedAt||!testSessionId)window.location.replace('../variant-b/index.html');
+if(!variantBElapsed||!variantATestStartedAt||!testStartedAt||!testSessionId)window.location.replace('../variant-b/index.html');
 syncVariantPageScroll();
 
 $('#addCargo').addEventListener('click',()=>addCargoBlock(true));

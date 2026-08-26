@@ -510,21 +510,30 @@ button.field-invalid:focus {
   position: fixed;
   inset: 0;
   z-index: 1800;
-  display: grid;
-  place-items: center;
-  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
   overflow: auto;
   background: rgba(0, 0, 0, .24);
+  overscroll-behavior: contain;
 }
 
 .variant-b-final-overlay[hidden] { display: none; }
 
 .variant-b-final-dialog {
   position: relative;
+  flex: 0 0 auto;
   box-sizing: border-box;
   width: 500px;
   height: 394px;
   max-width: 100%;
+  margin: auto;
   overflow: hidden;
   border-radius: 16px;
   background: #fff;
