@@ -505,7 +505,6 @@ button.field-invalid:focus {
   width: calc(100% - 64px);
   height: 40px;
 }
-+
 .variant-b-final-overlay {
   position: fixed;
   inset: 0;
