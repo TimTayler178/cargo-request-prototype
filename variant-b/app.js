@@ -412,7 +412,7 @@ $('#signButton').addEventListener('click',event=>{
   signingValidationActive=true;
   let valid=true;
   $$('.panel.cargo').forEach(cargo=>{if(!validateCargoSection(cargo))valid=false});
-  if(valid){event.stopImmediatePropagation();openVariantBComplete();return;}
+  if(valid){event.stopImmediatePropagation();openVariantComplete();return;}
   event.stopImmediatePropagation();
   note('\u0417\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u0435 \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u044b\u0435 \u043f\u043e\u043b\u044f');
   const firstInvalid=$('#routeOpen.field-invalid,#route .toggle-row.field-invalid,.cargo .field-invalid');
@@ -427,8 +427,8 @@ document.documentElement.dataset.variant='B';
 const variantAUi=document.createElement('div');
 variantAUi.id='variantAUi';
 variantAUi.innerHTML=`
-  <button class="variant-a-guide-button" id="variantGuideButton" type="button" aria-label="Открыть задание" title="Задание"><img src="assets/kontur-diadoc-logistics.svg" alt=""></button>
-  <div class="variant-a-overlay variant-a-welcome" id="variantWelcome" role="dialog" aria-modal="true" aria-labelledby="variantWelcomeTitle" hidden>
+  <button class="variant-a-guide-button" id="variantGuideButton" type="button" aria-label="Открыть задание" title="Задание"><img src="assets/kontur-diadoc-logistics.svg" alt=""><span>Задание</span></button>
+  <div class="variant-a-overlay variant-a-welcome" id="variantWelcome" role="dialog" aria-modal="true" aria-labelledby="variantWelcomeTitle">
     <div class="variant-a-dialog variant-a-welcome-dialog">
       <div class="variant-a-dialog-icon"><img src="assets/kontur-diadoc-logistics.svg" alt=""></div>
       <h2 id="variantWelcomeTitle">Заказ-заявка</h2>
@@ -436,10 +436,10 @@ variantAUi.innerHTML=`
         <p><strong>Вам необходимо отправить 2 груза:</strong></p>
         <p><strong>1. Холодильник «Бирюса»</strong><br><strong>Габариты коробки:</strong> 450x500x1700<br><strong>Вес брутто:</strong> 32 кг<br><strong>Погрузка:</strong> г. Москва, ул. Нижегородская, д. 29-33, стр. 15<br>22.08.2026 12:00—14:00<br><strong>Выгрузка:</strong> г. Воронеж, ул. Ленина, д. 73<br>22.08.2026 22:00—00:00</p>
         <p><strong>2. Холодильник «Индезит»</strong><br><strong>Габариты коробки:</strong> 450x500x1700<br><strong>Вес брутто:</strong> 32 кг<br><strong>Погрузка:</strong> г. Москва, ул. Нижегородская, д. 29-33, стр. 15<br>22.08.2026 12:00—14:00<br><strong>Выгрузка:</strong> г. Екатеринбург, ул. Монтажников, д. 16, корп. 2<br>23.08.2026 13:00—15:00</p>
-        <p>Необходимо заполнить только разделы «Маршрут» и «Сведения о грузе», остальные разделы заполнять не нужно</p>
+        <p>Необходимо заполнить только раздел «Сведения о грузе», остальные разделы заполнять не нужно</p>
         <p>Для повторного открытия задания нажми на кнопку с иконкой карты в правом верхнем углу страницы</p>
       </div>
-      <button class="primary variant-a-start" id="variantStart" type="button">Начать тест A</button>
+      <button class="primary variant-a-start" id="variantStart" type="button">Начать тест B</button>
     </div>
   </div>
   <div class="variant-a-overlay variant-a-task" id="variantTask" role="dialog" aria-modal="true" aria-labelledby="variantTaskTitle" hidden>
@@ -450,7 +450,7 @@ variantAUi.innerHTML=`
         <p><strong>Вам необходимо отправить 2 груза:</strong></p>
         <p><strong>1. Холодильник «Бирюса»</strong><br><strong>Габариты коробки:</strong> 450x500x1700<br><strong>Вес брутто:</strong> 32 кг<br><strong>Погрузка:</strong> г. Москва, ул. Нижегородская, д. 29-33, стр. 15<br>22.08.2026 12:00—14:00<br><strong>Выгрузка:</strong> г. Воронеж, ул. Ленина, д. 73<br>22.08.2026 22:00—00:00</p>
         <p><strong>2. Холодильник «Индезит»</strong><br><strong>Габариты коробки:</strong> 450x500x1700<br><strong>Вес брутто:</strong> 32 кг<br><strong>Погрузка:</strong> г. Москва, ул. Нижегородская, д. 29-33, стр. 15<br>22.08.2026 12:00—14:00<br><strong>Выгрузка:</strong> г. Екатеринбург, ул. Монтажников, д. 16, корп. 2<br>23.08.2026 13:00—15:00</p>
-        <p>Необходимо заполнить только разделы «Маршрут» и «Сведения о грузе», остальные разделы заполнять не нужно</p>
+        <p>Необходимо заполнить только раздел «Сведения о грузе», остальные разделы заполнять не нужно</p>
       </div>
       <button class="button" id="variantTaskDone" type="button">Закрыть</button>
     </div>
@@ -458,10 +458,10 @@ variantAUi.innerHTML=`
   <div class="variant-a-overlay variant-a-complete" id="variantComplete" role="dialog" aria-modal="true" aria-labelledby="variantCompleteTitle" hidden>
     <div class="variant-a-dialog variant-a-complete-dialog">
       <div class="variant-a-dialog-icon"><img src="assets/kontur-diadoc-logistics.svg" alt=""></div>
-      <h2 id="variantCompleteTitle">Тест A успешно пройден!</h2>
-      <p class="variant-a-complete-lead"><strong>Теперь давай пройдем тест B</strong></p>
+      <h2 id="variantCompleteTitle">Тест B успешно пройден!</h2>
+      <p class="variant-a-complete-lead"><strong>Теперь давай пройдем тест A</strong></p>
       <p class="variant-a-complete-copy">Задание тоже, для открытия задания нажми на кнопку<br>с иконкой карты в правом верхнем углу страницы</p>
-      <button class="primary" id="variantStartB" type="button">Начать тест B</button>
+      <button class="primary" id="variantStartB" type="button">Начать тест A</button>
     </div>
   </div>`;
 document.body.append(variantAUi);
@@ -469,75 +469,24 @@ document.body.append(variantAUi);
 const variantWelcome=$('#variantWelcome');
 const variantTask=$('#variantTask');
 const variantComplete=$('#variantComplete');
+let variantBStartedAt=null;
+let variantBDuration=0;
+let testStartedAt=0;
+let testSessionId='';
 function syncVariantPageScroll(){const bModal=$('#variantBAddressModal');document.body.style.overflow=(!variantWelcome.hidden||!variantTask.hidden||!variantComplete.hidden||!modal.hidden||(bModal&&!bModal.hidden))?'hidden':''}
 function openVariantTask(){variantTask.hidden=false;syncVariantPageScroll();$('#variantTaskDone').focus()}
 function closeVariantTask(){variantTask.hidden=true;syncVariantPageScroll();$('#variantGuideButton').focus()}
-function openVariantComplete(){variantComplete.hidden=false;syncVariantPageScroll();$('#variantStartB').focus()}
-$('#variantStart').addEventListener('click',()=>{variantWelcome.hidden=true;syncVariantPageScroll()});
+function openVariantComplete(){variantBDuration=Math.max(1000,Date.now()-(variantBStartedAt||Date.now()));variantComplete.hidden=false;syncVariantPageScroll();$('#variantStartB').focus()}
+$('#variantStart').addEventListener('click',()=>{variantBStartedAt=Date.now();testStartedAt=variantBStartedAt;testSessionId=globalThis.crypto?.randomUUID?.()||`${testStartedAt}-${Math.random().toString(36).slice(2)}`;variantWelcome.hidden=true;syncVariantPageScroll()});
 $('#variantGuideButton').addEventListener('click',openVariantTask);
 $('#variantTaskDone').addEventListener('click',closeVariantTask);
-$('#variantStartB').addEventListener('click',()=>{window.location.href='../variant-b/index.html'});
+$('#variantStartB').addEventListener('click',()=>{window.location.href=`../variant-a/index.html?b=${variantBDuration}&aStart=${Date.now()}&start=${testStartedAt}&session=${encodeURIComponent(testSessionId)}`});
 syncVariantPageScroll();
 
 $('#addCargo').addEventListener('click',()=>addCargoBlock(true));
 $('#signButton').addEventListener('click',()=>note('Заявка готова к подписанию'));
 $('#cancelButton').addEventListener('click',()=>note('Действие отменено'));
 renderRoutes();
-
-const variantBTiming=new URLSearchParams(window.location.search);
-const resultsEndpoint='https://script.google.com/macros/s/AKfycbz7yNthiJ98qexRFlq65cTU_6JTEOIrlQPus_7admsHj9A60ExAvuUJJabORWSWloqA/exec';
-const variantAElapsed=Math.max(0,Number(variantBTiming.get('a'))||0);
-const variantBStartedAt=Math.max(0,Number(variantBTiming.get('bStart'))||Date.now());
-const testStartedAt=Math.max(0,Number(variantBTiming.get('start'))||0);
-const testSessionId=variantBTiming.get('session')||'';
-let variantBElapsed=null;
-let resultsSent=false;
-
-const variantBCompleteUi=document.createElement('div');
-variantBCompleteUi.className='variant-b-final-overlay';
-variantBCompleteUi.id='variantBComplete';
-variantBCompleteUi.hidden=true;
-variantBCompleteUi.innerHTML=`
-  <div class="variant-b-final-dialog" role="dialog" aria-modal="true" aria-labelledby="variantBCompleteTitle">
-    <div class="variant-b-final-header">
-      <img src="assets/kontur-diadoc-logistics.svg" alt="">
-      <h2 id="variantBCompleteTitle">Тест B успешно пройден!</h2>
-      <p><strong>Спасибо за участие</strong></p>
-    </div>
-    <div class="variant-b-result-row" data-result="a"><div><strong>Тест A</strong><span class="variant-b-result-bar"><i></i></span></div><time>0:00</time></div>
-    <div class="variant-b-result-row" data-result="b"><div><strong>Тест B</strong><span class="variant-b-result-bar"><i></i></span></div><time>0:00</time></div>
-    <button class="primary" id="variantBRestart" type="button">Начать с начала</button>
-  </div>`;
-document.body.append(variantBCompleteUi);
-
-function formatVariantTime(milliseconds){
-  const seconds=Math.max(0,Math.floor(milliseconds/1000));
-  return `${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;
-}
-function sendCompletedResult(){
-  if(resultsSent||!variantAElapsed||!variantBElapsed||!testStartedAt||!testSessionId)return;
-  resultsSent=true;
-  const payload={startedAt:new Date(testStartedAt).toISOString(),durationA:variantAElapsed,durationB:variantBElapsed,sessionId:testSessionId};
-  fetch(resultsEndpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{resultsSent=false});
-}
-function openVariantBComplete(){
-  if(variantBElapsed===null)variantBElapsed=Math.max(1000,Date.now()-variantBStartedAt);
-  const maximum=Math.max(variantAElapsed,variantBElapsed,1);
-  const aRow=variantBCompleteUi.querySelector('[data-result="a"]');
-  const bRow=variantBCompleteUi.querySelector('[data-result="b"]');
-  aRow.querySelector('time').textContent=formatVariantTime(variantAElapsed);
-  bRow.querySelector('time').textContent=formatVariantTime(variantBElapsed);
-  aRow.querySelector('i').style.width=`${variantAElapsed/maximum*100}%`;
-  bRow.querySelector('i').style.width=`${variantBElapsed/maximum*100}%`;
-  const aSlower=variantAElapsed>=variantBElapsed;
-  aRow.classList.toggle('is-slower',aSlower);aRow.classList.toggle('is-faster',!aSlower);
-  bRow.classList.toggle('is-slower',!aSlower);bRow.classList.toggle('is-faster',aSlower);
-  variantBCompleteUi.hidden=false;
-  sendCompletedResult();
-  document.body.style.overflow='hidden';
-  $('#variantBRestart').focus();
-}
-$('#variantBRestart').addEventListener('click',()=>{window.location.href='../variant-a/index.html'});
 
 const variantBModal=document.createElement('div');
 variantBModal.className='variant-b-overlay';
@@ -706,7 +655,4 @@ document.querySelector('#routeModal')?.remove();
 document.querySelector('.section-nav a[href="#route"]')?.remove();
 document.querySelectorAll('.panel.cargo').forEach(setupVariantBCargoBlock);
 variantTask.querySelector('.variant-a-assignment p:last-child').textContent='Необходимо заполнить только раздел «Сведения о грузе», остальные разделы заполнять не нужно';
-variantWelcome.hidden=true;
-variantWelcome.remove();
-variantComplete.remove();
 syncVariantPageScroll();

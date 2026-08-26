@@ -346,20 +346,28 @@ button.field-invalid:focus {
 .variant-a-dialog-close:hover { background: #f2f2f2; }
 
 @media (max-width: 700px) {
-  .variant-a-guide-button { top: 16px; right: 16px; }
+  .variant-a-guide-button { top: 40px; right: 40px; }
   .variant-a-overlay { padding: 16px; }
   .variant-a-dialog { padding: 24px; }
 }
 
 /* Exact Variant A modal geometry from Figma nodes 4971:130351 and 4971:130521. */
 .variant-a-guide-button {
-  width: 48px;
+  width: auto;
   height: 48px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border: 0;
   border-radius: 8px;
   background: #fff;
   box-shadow: none;
+  opacity: .9;
 }
+
+.variant-a-guide-button span { font: 400 14px/20px "Lab Grotesque K", Arial, sans-serif; color: #222; white-space: nowrap; }
 
 .variant-a-guide-button:hover { background: #f2f2f2; }
 
