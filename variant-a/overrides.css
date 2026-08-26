@@ -346,20 +346,28 @@ button.field-invalid:focus {
 .variant-a-dialog-close:hover { background: #f2f2f2; }
 
 @media (max-width: 700px) {
-  .variant-a-guide-button { top: 16px; right: 16px; }
+  .variant-a-guide-button { top: 40px; right: 40px; }
   .variant-a-overlay { padding: 16px; }
   .variant-a-dialog { padding: 24px; }
 }
 
 /* Exact Variant A modal geometry from Figma nodes 4971:130351 and 4971:130521. */
 .variant-a-guide-button {
-  width: 48px;
+  width: auto;
   height: 48px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border: 0;
   border-radius: 8px;
   background: #fff;
   box-shadow: none;
+  opacity: .9;
 }
+
+.variant-a-guide-button span { font: 400 14px/20px "Lab Grotesque K", Arial, sans-serif; color: #222; white-space: nowrap; }
 
 .variant-a-guide-button:hover { background: #f2f2f2; }
 
@@ -490,6 +498,102 @@ button.field-invalid:focus {
 }
 
 #variantStartB {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  left: 32px;
+  width: calc(100% - 64px);
+  height: 40px;
+}
++
+.variant-b-final-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1800;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow: auto;
+  background: rgba(0, 0, 0, .24);
+}
+
+.variant-b-final-overlay[hidden] { display: none; }
+
+.variant-b-final-dialog {
+  position: relative;
+  box-sizing: border-box;
+  width: 500px;
+  height: 394px;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .18);
+}
+
+.variant-b-final-header {
+  box-sizing: border-box;
+  height: 204px;
+  padding: 32px 32px 0;
+  text-align: center;
+}
+
+.variant-b-final-header img {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+}
+
+.variant-b-final-header h2 {
+  margin: 0 0 20px;
+  font-size: 28px;
+  line-height: 34px;
+  font-weight: 700;
+}
+
+.variant-b-final-header p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.variant-b-result-row {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 76px;
+  height: 58px;
+  padding: 0 32px;
+}
+
+.variant-b-result-row > div { min-width: 0; }
+
+.variant-b-result-row strong,
+.variant-b-result-row time {
+  display: block;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.variant-b-result-row time { text-align: right; }
+
+.variant-b-result-bar {
+  display: block;
+  width: 100%;
+  height: 8px;
+  margin-top: 4px;
+}
+
+.variant-b-result-bar i {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.variant-b-result-row.is-slower .variant-b-result-bar i { background: #ff5a5f; }
+.variant-b-result-row.is-faster .variant-b-result-bar i { background: #00c853; }
+
+#variantBRestart {
   position: absolute;
   right: 32px;
   bottom: 32px;

@@ -429,7 +429,7 @@ document.documentElement.dataset.variant='A';
 const variantAUi=document.createElement('div');
 variantAUi.id='variantAUi';
 variantAUi.innerHTML=`
-  <button class="variant-a-guide-button" id="variantGuideButton" type="button" aria-label="Открыть задание" title="Задание"><img src="assets/kontur-diadoc-logistics.svg" alt=""></button>
+  <button class="variant-a-guide-button" id="variantGuideButton" type="button" aria-label="Открыть задание" title="Задание"><img src="assets/kontur-diadoc-logistics.svg" alt=""><span>Задание</span></button>
   <div class="variant-a-overlay variant-a-welcome" id="variantWelcome" role="dialog" aria-modal="true" aria-labelledby="variantWelcomeTitle">
     <div class="variant-a-dialog variant-a-welcome-dialog">
       <div class="variant-a-dialog-icon"><img src="assets/kontur-diadoc-logistics.svg" alt=""></div>
@@ -471,17 +471,69 @@ document.body.append(variantAUi);
 const variantWelcome=$('#variantWelcome');
 const variantTask=$('#variantTask');
 const variantComplete=$('#variantComplete');
-let variantATestStartedAt=null;
-let variantADuration=0;
-let variantASessionId='';
-function syncVariantPageScroll(){document.body.style.overflow=(!variantWelcome.hidden||!variantTask.hidden||!variantComplete.hidden||!modal.hidden)?'hidden':''}
+const variantATiming=new URLSearchParams(window.location.search);
+const variantBElapsed=Math.max(0,Number(variantATiming.get('b'))||0);
+const variantATestStartedAt=Math.max(0,Number(variantATiming.get('aStart'))||Date.now());
+const testStartedAt=Math.max(0,Number(variantATiming.get('start'))||0);
+const testSessionId=variantATiming.get('session')||'';
+const resultsEndpoint='https://script.google.com/macros/s/AKfycbz7yNthiJ98qexRFlq65cTU_6JTEOIrlQPus_7admsHj9A60ExAvuUJJabORWSWloqA/exec';
+let variantAElapsed=null;
+let resultsSent=false;
+
+const variantACompleteUi=document.createElement('div');
+variantACompleteUi.className='variant-b-final-overlay';
+variantACompleteUi.id='variantBComplete';
+variantACompleteUi.hidden=true;
+variantACompleteUi.innerHTML=`
+  <div class="variant-b-final-dialog" role="dialog" aria-modal="true" aria-labelledby="variantBCompleteTitle">
+    <div class="variant-b-final-header">
+      <img src="assets/kontur-diadoc-logistics.svg" alt="">
+      <h2 id="variantBCompleteTitle">Тестирование завершено!</h2>
+      <p>Спасибо за участие. Посмотри, сколько времени заняло прохождение каждого варианта.</p>
+    </div>
+    <div class="variant-b-result-row" data-result="a">
+      <div><strong>Вариант A</strong><span class="variant-b-result-bar"><i></i></span></div>
+      <time>00:00</time>
+    </div>
+    <div class="variant-b-result-row" data-result="b">
+      <div><strong>Вариант B</strong><span class="variant-b-result-bar"><i></i></span></div>
+      <time>00:00</time>
+    </div>
+    <button class="primary" id="variantBRestart" type="button">Начать с начала</button>
+  </div>`;
+document.body.append(variantACompleteUi);
+
+function formatVariantTime(ms){const total=Math.max(0,Math.round(ms/1000));return `${String(Math.floor(total/60)).padStart(2,'0')}:${String(total%60).padStart(2,'0')}`}
+function sendCompletedResult(){
+  if(resultsSent||!variantAElapsed||!variantBElapsed||!testStartedAt||!testSessionId)return;
+  resultsSent=true;
+  fetch(resultsEndpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({startedAt:new Date(testStartedAt).toISOString(),durationA:variantAElapsed,durationB:variantBElapsed,sessionId:testSessionId})}).catch(()=>{resultsSent=false});
+}
+function syncVariantPageScroll(){document.body.style.overflow=(!variantTask.hidden||!variantACompleteUi.hidden||!modal.hidden)?'hidden':''}
 function openVariantTask(){variantTask.hidden=false;syncVariantPageScroll();$('#variantTaskDone').focus()}
 function closeVariantTask(){variantTask.hidden=true;syncVariantPageScroll();$('#variantGuideButton').focus()}
-function openVariantComplete(){variantADuration=Math.max(1000,Date.now()-(variantATestStartedAt||Date.now()));variantComplete.hidden=false;syncVariantPageScroll();$('#variantStartB').focus()}
-$('#variantStart').addEventListener('click',()=>{variantATestStartedAt=Date.now();variantASessionId=globalThis.crypto?.randomUUID?.()||`${variantATestStartedAt}-${Math.random().toString(36).slice(2)}`;variantWelcome.hidden=true;syncVariantPageScroll()});
+function openVariantComplete(){
+  if(variantAElapsed===null)variantAElapsed=Math.max(1000,Date.now()-variantATestStartedAt);
+  const values={a:variantAElapsed,b:variantBElapsed};
+  const max=Math.max(values.a,values.b,1);
+  variantACompleteUi.querySelectorAll('.variant-b-result-row').forEach(row=>{
+    const value=values[row.dataset.result];
+    row.querySelector('time').textContent=formatVariantTime(value);
+    row.querySelector('.variant-b-result-bar i').style.width=`${Math.max(4,value/max*100)}%`;
+    row.classList.toggle('is-slower',value===max);
+    row.classList.toggle('is-faster',value!==max);
+  });
+  variantACompleteUi.hidden=false;
+  sendCompletedResult();
+  syncVariantPageScroll();
+  $('#variantBRestart').focus();
+}
 $('#variantGuideButton').addEventListener('click',openVariantTask);
 $('#variantTaskDone').addEventListener('click',closeVariantTask);
-$('#variantStartB').addEventListener('click',()=>{window.location.href=`../variant-b/index.html?a=${variantADuration}&bStart=${Date.now()}&start=${variantATestStartedAt}&session=${encodeURIComponent(variantASessionId)}`});
+$('#variantBRestart').addEventListener('click',()=>{window.location.href='../variant-b/index.html'});
+variantWelcome.remove();
+variantComplete.remove();
+if(!variantBElapsed||!testStartedAt||!testSessionId)window.location.replace('../variant-b/index.html');
 syncVariantPageScroll();
 
 $('#addCargo').addEventListener('click',()=>addCargoBlock(true));
